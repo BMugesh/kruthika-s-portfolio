@@ -135,12 +135,14 @@ const HeroSection = () => {
         >
           <a
             href="#contact"
+            data-magnetic
             className="group relative px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg neon-glow transition-all duration-300 hover:neon-glow-strong hover:scale-105"
           >
             <span className="relative z-10">Cut to the Chase (View Resume)</span>
           </a>
           <a
             href="#projects"
+            data-magnetic
             className="px-8 py-4 border border-primary/40 text-primary rounded-lg font-semibold transition-all duration-300 hover:bg-primary/10 hover:border-primary/70 hover:scale-105"
           >
             See the Masterpieces
