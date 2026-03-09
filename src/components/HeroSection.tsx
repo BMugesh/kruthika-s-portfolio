@@ -13,24 +13,20 @@ const GlitchText = ({ text }: { text: string }) => {
   }, []);
 
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block group cursor-pointer">
       <span className="relative z-10">{text}</span>
-      {isGlitching && (
-        <>
-          <span
-            className="absolute top-0 left-0 text-primary opacity-70"
-            style={{ animation: "glitch-1 0.2s steps(2) forwards" }}
-          >
-            {text}
-          </span>
-          <span
-            className="absolute top-0 left-0 text-secondary opacity-70"
-            style={{ animation: "glitch-2 0.2s steps(2) forwards" }}
-          >
-            {text}
-          </span>
-        </>
-      )}
+      <span
+        className="absolute top-0 left-0 text-primary opacity-0 group-hover:opacity-70 transition-opacity duration-100"
+        style={{ animation: isGlitching ? "glitch-1 0.2s steps(2) infinite" : "none" }}
+      >
+        {text}
+      </span>
+      <span
+        className="absolute top-0 left-0 text-secondary opacity-0 group-hover:opacity-70 transition-opacity duration-100"
+        style={{ animation: isGlitching ? "glitch-2 0.2s steps(2) infinite" : "none" }}
+      >
+        {text}
+      </span>
     </span>
   );
 };
@@ -134,11 +130,15 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 1.5 }}
         >
           <a
-            href="#contact"
+            href="/resume/chinna akka resume.pdf"
+            download="kruthika_s_resume.pdf"
             data-magnetic
-            className="group relative px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg neon-glow transition-all duration-300 hover:neon-glow-strong hover:scale-105"
+            className="group relative px-8 py-4 bg-primary text-primary-foreground font-bold rounded-lg neon-glow transition-all duration-300 hover:neon-glow-strong hover:scale-105 active:scale-95 overflow-hidden"
           >
-            <span className="relative z-10">Cut to the Chase (View Resume)</span>
+            <span className="relative z-10 flex items-center gap-2">
+              Cut to the Chase <span className="text-xs opacity-50 font-mono">(Get Resume)</span>
+            </span>
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           </a>
           <a
             href="#projects"

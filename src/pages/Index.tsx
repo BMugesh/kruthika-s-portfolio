@@ -9,6 +9,7 @@ import FooterSection from "@/components/FooterSection";
 import CustomCursor from "@/components/CustomCursor";
 import CinematicLoader from "@/components/CinematicLoader";
 import CinematicNav from "@/components/CinematicNav";
+import CinematicOverlay from "@/components/CinematicOverlay";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,15 +31,16 @@ const Index = () => {
       // Hero zoom-through on scroll
       if (heroRef.current) {
         gsap.to(heroRef.current, {
-          scale: 3,
+          scale: 1.5,
           opacity: 0,
-          ease: "power2.in",
+          ease: "power2.inOut",
           scrollTrigger: {
             trigger: heroRef.current,
             start: "top top",
-            end: "bottom top",
+            end: "bottom center",
             scrub: 1,
             pin: true,
+            pinSpacing: true, // Crucial for preventing layout jumps after unpinning
           },
         });
       }
@@ -55,8 +57,8 @@ const Index = () => {
             ease: "power2.out",
             scrollTrigger: {
               trigger: aboutRef.current,
-              start: "top 90%",
-              end: "top 30%",
+              start: "top 95%", // Start slightly later to avoid overlap with hero exit
+              end: "top 40%",
               scrub: 1,
             },
           }
@@ -211,6 +213,7 @@ const Index = () => {
   return (
     <>
       <CustomCursor />
+      <CinematicOverlay />
       {!loaded && <CinematicLoader onComplete={handleLoaded} />}
       {loaded && <CinematicNav />}
       <main

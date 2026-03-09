@@ -1,9 +1,25 @@
 import { motion } from "framer-motion";
+import {
+  Code2, Database, Layout, Server, Cpu,
+  Globe, Terminal, Layers, Box, Zap
+} from "lucide-react";
 
 const skills = [
-  "React.js", "Express.js", "Spring Boot", "Java", "NumPy",
-  "MongoDB", "Git", "TypeScript", "Node.js", "Python",
-  "REST APIs", "PostgreSQL", "Tailwind CSS", "Docker", "Framer Motion",
+  { name: "React.js", icon: Layout },
+  { name: "Express.js", icon: Server },
+  { name: "Spring Boot", icon: Cpu },
+  { name: "Java", icon: Code2 },
+  { name: "NumPy", icon: Layers },
+  { name: "MongoDB", icon: Database },
+  { name: "Git", icon: Terminal },
+  { name: "TypeScript", icon: Code2 },
+  { name: "Node.js", icon: Box },
+  { name: "Python", icon: Terminal },
+  { name: "REST APIs", icon: Globe },
+  { name: "PostgreSQL", icon: Database },
+  { name: "Tailwind CSS", icon: Zap },
+  { name: "Docker", icon: Box },
+  { name: "Framer Motion", icon: Zap },
 ];
 
 const SkillsSection = () => {
@@ -35,11 +51,12 @@ const SkillsSection = () => {
           <div className="animate-marquee flex gap-6 whitespace-nowrap">
             {[...skills, ...skills].map((skill, i) => (
               <div
-                key={`${skill}-${i}`}
-                className="glass-card neon-border px-6 py-4 flex-shrink-0 hover:bg-primary/10 transition-all duration-300 cursor-default group"
+                key={`${skill.name}-${i}`}
+                className="glass-card neon-border px-6 py-4 flex items-center gap-3 flex-shrink-0 hover:bg-primary/10 transition-all duration-300 cursor-default group"
               >
+                <skill.icon className="w-5 h-5 text-primary opacity-50 group-hover:opacity-100 transition-opacity" />
                 <span className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                  {skill}
+                  {skill.name}
                 </span>
               </div>
             ))}
@@ -54,11 +71,12 @@ const SkillsSection = () => {
           <div className="flex gap-6 whitespace-nowrap" style={{ animation: "marquee 35s linear infinite reverse" }}>
             {[...skills.slice().reverse(), ...skills.slice().reverse()].map((skill, i) => (
               <div
-                key={`rev-${skill}-${i}`}
-                className="glass-card neon-border px-6 py-4 flex-shrink-0 hover:bg-primary/10 transition-all duration-300 cursor-default group"
+                key={`rev-${skill.name}-${i}`}
+                className="glass-card neon-border px-6 py-4 flex items-center gap-3 flex-shrink-0 hover:bg-primary/10 transition-all duration-300 cursor-default group"
               >
+                <skill.icon className="w-5 h-5 text-secondary opacity-50 group-hover:opacity-100 transition-opacity" />
                 <span className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                  {skill}
+                  {skill.name}
                 </span>
               </div>
             ))}

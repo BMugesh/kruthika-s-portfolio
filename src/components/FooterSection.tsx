@@ -29,25 +29,63 @@ const FooterSection = () => {
           <p className="font-mono text-primary/70 text-sm tracking-widest uppercase mb-3">
             // The Credits
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold mb-12">
-            <span className="text-gradient-cyan neon-text">End Scene</span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <span className="text-gradient-cyan neon-text">Send a Transmission</span>
           </h2>
+          <p className="text-muted-foreground text-lg mb-12 max-w-2xl mx-auto">
+            Ready to start a new production? Drop a line and let's build something that refuses to be ignored.
+          </p>
+        </motion.div>
+
+        {/* Contact Form */}
+        <motion.div
+          className="max-w-xl mx-auto mb-20"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <form className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="PROTAGONIST NAME"
+                className="bg-card/30 border border-white/10 rounded-lg p-4 font-mono text-sm focus:border-primary/50 outline-none transition-all placeholder:opacity-30"
+              />
+              <input
+                type="email"
+                placeholder="COMMUNICATION FREQUENCY"
+                className="bg-card/30 border border-white/10 rounded-lg p-4 font-mono text-sm focus:border-primary/50 outline-none transition-all placeholder:opacity-30"
+              />
+            </div>
+            <textarea
+              rows={4}
+              placeholder="THE PLOT"
+              className="w-full bg-card/30 border border-white/10 rounded-lg p-4 font-mono text-sm focus:border-primary/50 outline-none transition-all placeholder:opacity-30"
+            />
+            <button className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-lg neon-glow hover:neon-glow-strong transition-all active:scale-[0.98]">
+              Roll Camera (Send Message)
+            </button>
+          </form>
         </motion.div>
 
         {/* Rolling Credits */}
-        <div className="mb-12 space-y-3">
-          {credits.map((credit, i) => (
-            <motion.p
-              key={credit}
-              className="text-muted-foreground text-lg font-mono"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
-            >
-              {credit}
-            </motion.p>
-          ))}
+        <div className="mb-20">
+          <p className="font-mono text-primary/50 text-xs tracking-widest uppercase mb-8">// The Credits</p>
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+            {credits.map((credit, i) => (
+              <motion.p
+                key={credit}
+                className="text-muted-foreground/60 text-sm font-mono whitespace-nowrap"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                {credit}
+              </motion.p>
+            ))}
+          </div>
         </div>
 
         {/* Social Links */}
