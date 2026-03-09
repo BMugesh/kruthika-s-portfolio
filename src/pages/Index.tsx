@@ -8,6 +8,7 @@ import SkillsSection from "@/components/SkillsSection";
 import FooterSection from "@/components/FooterSection";
 import CustomCursor from "@/components/CustomCursor";
 import CinematicLoader from "@/components/CinematicLoader";
+import CinematicNav from "@/components/CinematicNav";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,7 @@ const Index = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   const handleLoaded = useCallback(() => setLoaded(true), []);
 
@@ -41,7 +43,7 @@ const Index = () => {
         });
       }
 
-      // About section slide up from depth
+      // About section — slide up from depth
       if (aboutRef.current) {
         gsap.fromTo(
           aboutRef.current,
@@ -59,9 +61,30 @@ const Index = () => {
             },
           }
         );
+
+        // Text reveals inside About
+        const aboutTexts = aboutRef.current.querySelectorAll("h2, h3, p, .glass-card");
+        aboutTexts.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 88%",
+                end: "top 60%",
+                scrub: 0.5,
+              },
+            }
+          );
+        });
       }
 
-      // Projects horizontal wipe feel
+      // Projects — horizontal wipe + text reveals
       if (projectsRef.current) {
         gsap.fromTo(
           projectsRef.current,
@@ -78,9 +101,31 @@ const Index = () => {
             },
           }
         );
+
+        // Stagger project cards with cinematic slide
+        const projectCards = projectsRef.current.querySelectorAll(".glass-card");
+        projectCards.forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            { x: i % 2 === 0 ? -80 : 80, y: 30, opacity: 0, rotateY: i % 2 === 0 ? -5 : 5 },
+            {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              rotateY: 0,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                end: "top 55%",
+                scrub: 0.8,
+              },
+            }
+          );
+        });
       }
 
-      // Skills tilt up reveal
+      // Skills — tilt up reveal + text
       if (skillsRef.current) {
         gsap.fromTo(
           skillsRef.current,
@@ -98,6 +143,65 @@ const Index = () => {
             },
           }
         );
+
+        // Skills headings
+        const skillTexts = skillsRef.current.querySelectorAll("h2, p");
+        skillTexts.forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: 30, opacity: 0, scale: 0.95 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+                end: "top 65%",
+                scrub: 0.6,
+              },
+            }
+          );
+        });
+      }
+
+      // Footer — fade up with line reveal
+      if (footerRef.current) {
+        gsap.fromTo(
+          footerRef.current,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: footerRef.current,
+              start: "top 90%",
+              end: "top 60%",
+              scrub: 0.8,
+            },
+          }
+        );
+
+        const footerLines = footerRef.current.querySelectorAll("h2, p, a");
+        footerLines.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { y: 25, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 95%",
+                end: "top 75%",
+                scrub: 0.5,
+              },
+            }
+          );
+        });
       }
     }, containerRef);
 
@@ -108,6 +212,7 @@ const Index = () => {
     <>
       <CustomCursor />
       {!loaded && <CinematicLoader onComplete={handleLoaded} />}
+      {loaded && <CinematicNav />}
       <main
         ref={containerRef}
         className="bg-background text-foreground overflow-x-hidden"
@@ -119,13 +224,15 @@ const Index = () => {
         <div ref={aboutRef}>
           <AboutSection />
         </div>
-        <div ref={projectsRef}>
+        <div ref={projectsRef} style={{ perspective: "800px" }}>
           <ProjectsSection />
         </div>
         <div ref={skillsRef} style={{ perspective: "1000px" }}>
           <SkillsSection />
         </div>
-        <FooterSection />
+        <div ref={footerRef}>
+          <FooterSection />
+        </div>
       </main>
     </>
   );
