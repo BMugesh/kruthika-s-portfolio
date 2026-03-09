@@ -64,6 +64,7 @@ const FooterSection = () => {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
+              data-magnetic
               className="group glass-card neon-border p-4 rounded-xl transition-all duration-300 hover:neon-glow-strong hover:scale-110 hover:bg-primary/10"
               aria-label={social.label}
             >
